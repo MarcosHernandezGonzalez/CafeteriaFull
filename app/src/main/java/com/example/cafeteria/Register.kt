@@ -8,29 +8,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import com.example.cafeteria.databinding.ActivityLoginBinding
+import com.example.cafeteria.databinding.ActivityRegisterBinding
 
-class LoginActivity : AppCompatActivity() {
+class Register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        val binding: ActivityRegisterBinding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.register.setOnClickListener {
-            val intent = Intent(this, Register::class.java)
+        binding.login.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
-        binding.login.setOnClickListener {
+        binding.register.setOnClickListener {
             val user = User(binding.user.text.toString(), binding.pass.text.toString())
-            if (LoginViewModel().login(user)){
-                val intent = Intent(this, Home::class.java)
+            val registerCheck = RegisterViewModel().registerUser(user)
+            if (registerCheck){
+                Toast.makeText(this, "Usuario añadido correctamente", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "El usuario ya existe", Toast.LENGTH_SHORT).show()
+                binding.user.text = null
+                binding.pass.text = null
             }
         }
     }
