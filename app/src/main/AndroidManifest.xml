@@ -13,10 +13,11 @@
         android:theme="@style/Theme.Cafeteria"
         tools:targetApi="31">
         <activity
-            android:name=".UsersViewModel"
-            android:exported="false" />
-        <activity
             android:name=".Home"
+            android:exported="false"
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name=".UsersViewModel"
             android:exported="false" />
         <activity
             android:name=".Register"

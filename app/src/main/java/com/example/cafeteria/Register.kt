@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.cafeteria.databinding.ActivityRegisterBinding
 
 class Register : AppCompatActivity() {
+    private val viewModel: RegisterViewModel by viewModels<RegisterViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,7 +28,7 @@ class Register : AppCompatActivity() {
         }
         binding.register.setOnClickListener {
             val user = User(binding.user.text.toString(), binding.pass.text.toString())
-            val registerCheck = RegisterViewModel().registerUser(user)
+            val registerCheck = viewModel.registerUser(user)
             if (registerCheck){
                 Toast.makeText(this, "Usuario añadido correctamente", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, LoginActivity::class.java)

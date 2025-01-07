@@ -1,9 +1,10 @@
 package com.example.cafeteria
 
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
 import com.example.cafeteria.Users
 
-class RegisterViewModel {
+class RegisterViewModel: ViewModel() {
     fun registerUser(user: User): Boolean {
         val users = Users.userList()
         if (users.contains(user)){
